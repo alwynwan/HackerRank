@@ -23,17 +23,15 @@ vector<int> dynamicArray(int n, vector<vector<int>> queries) {
     seq_list.resize(n);
 
     for(auto query : queries) {
+        auto& seq = seq_list[(query[1] ^ last_answer) % n];
+        
         switch(query[0]) {
             case 1: {
-                auto seq_idx = (query[1] ^ last_answer) % n;
-                auto& seq = seq_list[seq_idx];
                 seq.push_back(query[2]);
                 break;
             }
 
             case 2: {
-                auto seq_idx = (query[1] ^ last_answer) % n;
-                auto& seq = seq_list[seq_idx];
                 last_answer = seq[query[2] % seq.size()];
                 ret.push_back(last_answer);
                 break;
